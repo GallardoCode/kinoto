@@ -29,7 +29,28 @@
         your experience.
       </p>
     <![endif]-->
-
+    <div class="container mt-4">
+      <h1 class="display-4 text-center">
+        <i class="fas fa-film text-secondary"></i>
+        My <span class="text-secondary">Movie</span> Notebook
+      </h1>
+      <form class="moevie-form">
+        <div class="form-group">
+          <label for="title">Title</label>
+          <input type="text" name="title" id="title" class="form-control">
+        </div>
+        <div class="form-group">
+          <label for="priority">Priority</label>
+          <select name="priority" id="priority">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+          </select>
+        </div>
+        <input type="submit" value="Add Movie" class="btn btn-primary btn-block">
+    </div>
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
     <script>
       (function(b, o, i, l, e, r) {
