@@ -67,12 +67,25 @@ class UI {
   }
 
   /**
+   *Delete movie
+   *
+   * @static
+   * @param {*} el element clicked
+   * @memberof UI
+   */
+  static deleteMovie(el) {
+    if (el.classList.contains('delete')) {
+      el.parentElement.parentElement.remove();
+    }
+  }
+
+  /**
    *Clear Fields in movie form
    *
    * @static
    * @memberof UI
    */
-  static clearFields(){
+  static clearFields() {
     document.querySelector('#title').value = '';
     document.querySelector('#priority').value = 1;
   }
@@ -94,6 +107,11 @@ document.querySelector('#movie-form').addEventListener('submit', e => {
   const movie = new Movie(title, priority);
   console.log(movie);
   UI.clearFields();
+});
+
+// Event: Remove a book
+document.querySelector('#movie-list').addEventListener('click', e => {
+  UI.deleteMovie(e.target);
 });
 // Uncomment to enable Bootstrap tooltips
 // https://getbootstrap.com/docs/4.0/components/tooltips/#example-enable-tooltips-everywhere
