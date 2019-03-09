@@ -38,6 +38,7 @@ class UI {
     ];
 
     const movies = testMovies;
+    movies.forEach(movie => UI.addMovieToList(movie));
   }
 
   /**
