@@ -18,6 +18,13 @@ class Movie {
  * @class UI
  */
 class UI {
+
+  /**
+   *Populate the movie list with movie data
+   *
+   * @static
+   * @memberof UI
+   */
   static displayMovies() {
     const testMovies = [
       {
