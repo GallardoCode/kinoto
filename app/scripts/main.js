@@ -80,6 +80,25 @@ class UI {
   }
 
   /**
+   *Show alert message above the form
+   *
+   * @static
+   * @param {*} message string to display as message
+   * @param {*} className class name to style the alert
+   * @memberof UI
+   */
+  static showAlert(message, className) {
+    const div = document.createElement('div');
+    div.className = `alert alert-${className}`;
+    div.appendChild(document.createTextNode(message));
+    const container = document.querySelector('.container');
+    const form = document.querySelector('#movie-form');
+    container.insertBefore(div, form);
+    // Vanish in 3 seconds
+    setTimeout(() => document.querySelector('.alert').remove(), 3000);
+  }
+
+  /**
    *Clear Fields in movie form
    *
    * @static
@@ -105,7 +124,7 @@ document.querySelector('#movie-form').addEventListener('submit', e => {
 
   // Validate
   if (title === '') {
-    alert('Please fill all fields');
+    UI.showAlert('Please fill in all fields', 'danger');
   } else {
     // Instantiate movie
     const movie = new Movie(title, priority);
