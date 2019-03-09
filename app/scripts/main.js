@@ -70,6 +70,19 @@ class UI {
 // Event: Display Books
 document.addEventListener('DOMContentLoaded', UI.displayMovies);
 
+// Event: Add a Book
+document.querySelector('#movie-form').addEventListener('submit', e => {
+  // Prevent submit
+  e.preventDefault();
+
+  // Get form values
+  const title = document.querySelector('#title').value;
+  const priority = document.querySelector('#priority').value;
+
+  // Instantiate movie
+  const movie = new Movie(title, priority);
+  console.log(movie);
+});
 // Uncomment to enable Bootstrap tooltips
 // https://getbootstrap.com/docs/4.0/components/tooltips/#example-enable-tooltips-everywhere
 // $(function () { $('[data-toggle="tooltip"]').tooltip(); });
