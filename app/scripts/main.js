@@ -10,6 +10,28 @@ class Movie {
   }
 }
 
+/**
+ *Creates the UI class for UI manipulation
+ *
+ * @class UI
+ */
+class UI {
+  static displayMovies() {
+    const testMovies = [
+      {
+        title: 'Movie One',
+        priority: 5
+      },
+      {
+        title: 'Movie Two',
+        priority: 5
+      }
+    ];
+
+    const movies = testMovies;
+  }
+}
+
 // Uncomment to enable Bootstrap tooltips
 // https://getbootstrap.com/docs/4.0/components/tooltips/#example-enable-tooltips-everywhere
 // $(function () { $('[data-toggle="tooltip"]').tooltip(); });
