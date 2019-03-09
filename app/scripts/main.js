@@ -1,5 +1,3 @@
-import { listenerCount } from "cluster";
-
 /**
  *Creates a Movie
  *
@@ -18,7 +16,6 @@ class Movie {
  * @class UI
  */
 class UI {
-
   /**
    *Populate the movie list with movie data
    *
@@ -69,6 +66,9 @@ class UI {
     movieList.appendChild(row);
   }
 }
+
+// Event: Display Books
+document.addEventListener('DOMContentLoaded', UI.displayMovies);
 
 // Uncomment to enable Bootstrap tooltips
 // https://getbootstrap.com/docs/4.0/components/tooltips/#example-enable-tooltips-everywhere
