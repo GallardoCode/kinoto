@@ -1,4 +1,14 @@
-console.log('\'Allo \'Allo!');
+/**
+ *Creates a Movie
+ *
+ * @class Movie
+ */
+class Movie {
+  constructor(title, priority) {
+    this.title = title;
+    this.priority = priority;
+  }
+}
 
 // Uncomment to enable Bootstrap tooltips
 // https://getbootstrap.com/docs/4.0/components/tooltips/#example-enable-tooltips-everywhere
