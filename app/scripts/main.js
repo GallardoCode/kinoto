@@ -110,6 +110,15 @@ class UI {
   }
 }
 
+/**
+ * Class to manage storage
+ *
+ * @class Store
+ */
+class Store {
+
+}
+
 // Event: Display Books
 document.addEventListener('DOMContentLoaded', UI.displayMovies);
 
