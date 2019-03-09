@@ -66,6 +66,12 @@ class UI {
     movieList.appendChild(row);
   }
 
+  /**
+   *Clear Fields in movie form
+   *
+   * @static
+   * @memberof UI
+   */
   static clearFields(){
     document.querySelector('#title').value = '';
     document.querySelector('#priority').value = 1;
