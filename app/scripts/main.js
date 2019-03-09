@@ -117,6 +117,22 @@ class UI {
  */
 class Store {
 
+  /**
+   * Get movies from local storage as objects
+   *
+   * @static
+   * @returns
+   * @memberof Store
+   */
+  static getMovies() {
+    let movies;
+    if (localStorage.getItem('movies') === null) {
+      movies = [];
+    } else {
+      movies = JSON.parse(localStorage.getItem('books'));
+    }
+    return movies;
+  }
 }
 
 // Event: Display Books
