@@ -103,10 +103,15 @@ document.querySelector('#movie-form').addEventListener('submit', e => {
   const title = document.querySelector('#title').value;
   const priority = document.querySelector('#priority').value;
 
-  // Instantiate movie
-  const movie = new Movie(title, priority);
-  console.log(movie);
-  UI.clearFields();
+  // Validate
+  if (title === '') {
+    alert('Please fill all fields');
+  } else {
+    // Instantiate movie
+    const movie = new Movie(title, priority);
+    console.log(movie);
+    UI.clearFields();
+  }
 });
 
 // Event: Remove a book
