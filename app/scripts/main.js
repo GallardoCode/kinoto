@@ -1,3 +1,5 @@
+import { listenerCount } from "cluster";
+
 /**
  *Creates a Movie
  *
@@ -29,6 +31,34 @@ class UI {
     ];
 
     const movies = testMovies;
+  }
+
+  /**
+   *Adds movie as a row to the movie-list tb
+   *
+   * @static
+   * @param {*} movie object
+   * @memberof UI
+   */
+  static addMovieToList(movie) {
+    const movieList = document.querySelector('#movie-list');
+    const row = document.createElement('tr');
+    const fragment = document.createDocumentFragment();
+    const button = document.createElement('a');
+    button.href = '#';
+    button.className = 'btn btn-danger btn-sm delete';
+    button.textContent = 'x';
+    let col;
+    Object.entries(movie).forEach(([k, v]) => {
+      col = document.createElement('td');
+      col.textContent = v;
+      fragment.appendChild(col);
+    });
+    col = document.createElement('td');
+    col.appendChild(button);
+    fragment.appendChild(col);
+    row.appendChild(fragment);
+    movieList.appendChild(row);
   }
 }
 
