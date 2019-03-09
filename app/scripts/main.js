@@ -65,6 +65,11 @@ class UI {
     row.appendChild(fragment);
     movieList.appendChild(row);
   }
+
+  static clearFields(){
+    document.querySelector('#title').value = '';
+    document.querySelector('#priority').value = 1;
+  }
 }
 
 // Event: Display Books
@@ -82,6 +87,7 @@ document.querySelector('#movie-form').addEventListener('submit', e => {
   // Instantiate movie
   const movie = new Movie(title, priority);
   console.log(movie);
+  UI.clearFields();
 });
 // Uncomment to enable Bootstrap tooltips
 // https://getbootstrap.com/docs/4.0/components/tooltips/#example-enable-tooltips-everywhere
