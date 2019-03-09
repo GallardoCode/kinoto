@@ -136,6 +136,7 @@ document.querySelector('#movie-form').addEventListener('submit', e => {
 // Event: Remove a book
 document.querySelector('#movie-list').addEventListener('click', e => {
   UI.deleteMovie(e.target);
+  UI.showAlert('Book Removed', 'success');
 });
 // Uncomment to enable Bootstrap tooltips
 // https://getbootstrap.com/docs/4.0/components/tooltips/#example-enable-tooltips-everywhere
