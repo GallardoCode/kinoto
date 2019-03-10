@@ -128,7 +128,7 @@ class Store {
     if (localStorage.getItem('movies') === null) {
       movies = [];
     } else {
-      movies = JSON.parse(localStorage.getItem('books'));
+      movies = JSON.parse(localStorage.getItem('movies'));
     }
     return movies;
   }
