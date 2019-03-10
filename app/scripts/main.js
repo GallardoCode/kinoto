@@ -160,7 +160,7 @@ document.addEventListener('DOMContentLoaded', UI.displayMovies);
 document.querySelector('#movie-form').addEventListener('submit', e => {
   // Prevent submit
   e.preventDefault();
-
+  console.log(e.target);
   // Get form values
   const title = document.querySelector('#title').value;
   const priority = document.querySelector('#priority').value;
