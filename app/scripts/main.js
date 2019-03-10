@@ -171,6 +171,10 @@ document.querySelector('#movie-form').addEventListener('submit', e => {
   } else {
     // Instantiate movie
     const movie = new Movie(title, priority);
+    // Store movie in local storage
+    Store.addMovie(movie);
+    // Display movie
+    UI.addMovieToList(movie);
     console.log(movie);
     UI.clearFields();
   }
