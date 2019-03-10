@@ -153,10 +153,10 @@ class Store {
   }
 }
 
-// Event: Display Books
+// Event: Display Movies
 document.addEventListener('DOMContentLoaded', UI.displayMovies);
 
-// Event: Add a Book
+// Event: Add a Movies
 document.querySelector('#movie-form').addEventListener('submit', e => {
   // Prevent submit
   e.preventDefault();
@@ -180,10 +180,15 @@ document.querySelector('#movie-form').addEventListener('submit', e => {
   }
 });
 
-// Event: Remove a book
+// Event: Remove a Movie
 document.querySelector('#movie-list').addEventListener('click', e => {
   UI.deleteMovie(e.target);
-  UI.showAlert('Book Removed', 'success');
+  // Remove Movie from storage
+  Store.removeMovie(
+    e.target.parentElement.parentElement.firstChild.textContent
+  );
+  console.log(e.target.parentElement.parentElement.firstChild);
+  UI.showAlert('Movie Removed', 'success');
 });
 // Uncomment to enable Bootstrap tooltips
 // https://getbootstrap.com/docs/4.0/components/tooltips/#example-enable-tooltips-everywhere
