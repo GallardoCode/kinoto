@@ -132,6 +132,19 @@ class Store {
     }
     return movies;
   }
+
+  /**
+   * Add movies to local storage as string
+   *
+   * @static
+   * @param {*} movie single movie as object
+   * @memberof Store
+   */
+  static addMovie(movie){
+    const movies = Store.getMovies();
+    movies.push(movie);
+    localStorage.setItem('movies', JSON.stringify(movies));
+  }
 }
 
 // Event: Display Books
