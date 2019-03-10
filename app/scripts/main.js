@@ -140,9 +140,26 @@ class Store {
    * @param {*} movie single movie as object
    * @memberof Store
    */
-  static addMovie(movie){
+  static addMovie(movie) {
     const movies = Store.getMovies();
     movies.push(movie);
+    localStorage.setItem('movies', JSON.stringify(movies));
+  }
+
+  /**
+   *Remove movie from local storage
+   *
+   * @static
+   * @param {*} title title of movie
+   * @memberof Store
+   */
+  static removeMovie(title) {
+    const movies = Store.getMovies();
+    movies.forEach((movie, index) => {
+      if (movie.title === title) {
+        movies.splice(index, 1);
+      }
+    });
     localStorage.setItem('movies', JSON.stringify(movies));
   }
 }
