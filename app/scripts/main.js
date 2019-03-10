@@ -23,18 +23,7 @@ class UI {
    * @memberof UI
    */
   static displayMovies() {
-    const testMovies = [
-      {
-        title: 'Movie One',
-        priority: 5
-      },
-      {
-        title: 'Movie Two',
-        priority: 5
-      }
-    ];
-
-    const movies = testMovies;
+    const movies = Store.getMovies();
     movies.forEach(movie => UI.addMovieToList(movie));
   }
 
