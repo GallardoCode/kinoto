@@ -116,12 +116,11 @@ class UI {
  * @class Store
  */
 class Store {
-
   /**
    * Get movies from local storage as objects
    *
    * @static
-   * @returns
+   * @returns array of movies
    * @memberof Store
    */
   static getMovies() {
