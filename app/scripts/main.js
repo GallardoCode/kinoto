@@ -20,13 +20,67 @@ class Movie {
  * @class TheMovieDB
  */
 class TheMovieDB {
-
   static getConfig(config) {
     if (config === Object(config)) {
       TheMovieDB.apiKey = config.apiKey;
       TheMovieDB.baseUri = config.baseUri;
       TheMovieDB.imagesUri = config.imagesUri;
     }
+    TheMovieDB.tmdbQuery('/configuration');
+  }
+
+  static tmdbQuery(url, params, success, fail) {
+    const apiKeyString = `api_key=${TheMovieDB.apiKey}`;
+    let paramsString = '';
+    if (params === Object(params)) {
+      Object.entries(params).forEach(([k, v]) => {
+        paramsString += `&${k}=${encodeURIComponent(v)}`;
+      });
+    }
+    const request = `${
+      TheMovieDB.baseUri
+    }${url}?${apiKeyString}${paramsString}`;
+    console.log(request);
+    fetch(request).then(response => {
+      if (response.ok) {
+        return response
+          .json()
+          .then(result => {
+            if (typeof success === 'function') {
+              success(result);
+            } else {
+              throw new Error('No success callback but successful request');
+            }
+          })
+          .catch(e => {
+            if (typeof fail === 'function') {
+              fail(e);
+            } else {
+              if (e.message === 'No success callback but successful request') {
+                throw new Error(e.message);
+              }
+              throw new Error(
+                `No fail callback unsuccesful request ${response.statusText}`
+              );
+            }
+          });
+      }
+      return response
+        .json()
+        .catch(e => {
+          throw new Error(response.statusText);
+        })
+        .then(result => {
+          throw new Error(result.status_message);
+        })
+        .catch(e => {
+          if (typeof fail === 'function') {
+            fail(e);
+          } else {
+            throw new Error(`No fail callback: ${e.message}`);
+          }
+        });
+    });
   }
 }
 
