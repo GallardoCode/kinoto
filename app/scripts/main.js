@@ -1,5 +1,6 @@
 import $ from 'jquery';
 import Bootstrap from 'bootstrap'; // eslint-disable-line no-unused-vars
+import AppConfig from './config';
 
 /**
  *Creates a Movie
@@ -10,6 +11,12 @@ class Movie {
   constructor(title, priority) {
     this.title = title;
     this.priority = priority;
+  }
+}
+
+class TheMovieDB {
+  static getConfig(config) {
+    console.log(config.apiKey);
   }
 }
 
@@ -157,7 +164,10 @@ class Store {
 }
 
 // Event: Display Movies
-document.addEventListener('DOMContentLoaded', UI.displayMovies);
+document.addEventListener('DOMContentLoaded', () => {
+  UI.displayMovies();
+  TheMovieDB.getConfig(AppConfig);
+});
 
 // Event: Add a Movies
 document.querySelector('#movie-form').addEventListener('submit', e => {
