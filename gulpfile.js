@@ -6,6 +6,8 @@ const del = require('del');
 const autoprefixer = require('autoprefixer');
 const cssnano = require('cssnano');
 const { argv } = require('yargs');
+const webpack = require('webpack-stream');
+const named = require('vinyl-named');
 
 const $ = gulpLoadPlugins();
 const server = browserSync.create();
@@ -33,11 +35,32 @@ function styles() {
     .pipe(server.reload({stream: true}));
 };
 
+let webpackConfig = {
+  mode: (isProd ? 'production' : 'development'),
+  module: {
+    rules: [
+      {
+        test: /\.m?js$/,
+        exclude: /(node_modules)/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env']
+          }
+        }
+      }
+    ]
+  },
+  devtool: !isProd && 'source-map'
+}
+
 function scripts() {
-  return src('app/scripts/**/*.js')
+  return src('app/scripts/main.js')
     .pipe($.plumber())
+    .pipe(named())
     .pipe($.if(!isProd, $.sourcemaps.init()))
-    .pipe($.babel())
+    //.pipe($.sourcemaps.init())
+    .pipe(webpack(webpackConfig))
     .pipe($.if(!isProd, $.sourcemaps.write('.')))
     .pipe(dest('.tmp/scripts'))
     .pipe(server.reload({stream: true}));
