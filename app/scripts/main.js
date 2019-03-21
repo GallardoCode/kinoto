@@ -14,9 +14,19 @@ class Movie {
   }
 }
 
+/**
+ * The Movie Database class to interact with the API
+ *
+ * @class TheMovieDB
+ */
 class TheMovieDB {
+
   static getConfig(config) {
-    console.log(config.apiKey);
+    if (config === Object(config)) {
+      TheMovieDB.apiKey = config.apiKey;
+      TheMovieDB.baseUri = config.baseUri;
+      TheMovieDB.imagesUri = config.imagesUri;
+    }
   }
 }
 
