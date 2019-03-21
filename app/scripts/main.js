@@ -1,3 +1,6 @@
+import $ from 'jquery';
+import Bootstrap from 'bootstrap'; // eslint-disable-line no-unused-vars
+
 /**
  *Creates a Movie
  *
