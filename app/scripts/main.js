@@ -20,13 +20,13 @@ class Movie {
  * @class TheMovieDB
  */
 class TheMovieDB {
-  static getConfig(config) {
+  static getConfig(config, success, fail) {
     if (config === Object(config)) {
       TheMovieDB.apiKey = config.apiKey;
       TheMovieDB.baseUri = config.baseUri;
       TheMovieDB.imagesUri = config.imagesUri;
     }
-    TheMovieDB.tmdbQuery('/configuration');
+    TheMovieDB.tmdbQuery('/configuration', '', success, fail);
   }
 
   static tmdbQuery(url, params, success, fail) {
@@ -47,6 +47,7 @@ class TheMovieDB {
           .json()
           .then(result => {
             if (typeof success === 'function') {
+              console.log('are we here');
               success(result);
             } else {
               throw new Error('No success callback but successful request');
@@ -54,7 +55,7 @@ class TheMovieDB {
           })
           .catch(e => {
             if (typeof fail === 'function') {
-              fail(e);
+              fail(e.message);
             } else {
               if (e.message === 'No success callback but successful request') {
                 throw new Error(e.message);
@@ -75,7 +76,7 @@ class TheMovieDB {
         })
         .catch(e => {
           if (typeof fail === 'function') {
-            fail(e);
+            fail(e.message);
           } else {
             throw new Error(`No fail callback: ${e.message}`);
           }
@@ -171,6 +172,19 @@ class UI {
     document.querySelector('#title').value = '';
     document.querySelector('#priority').value = 1;
   }
+
+  static addSearch() {
+    const button = document.createElement('input');
+    button.className = `btn btn-secondary`;
+    button.type = 'button';
+    button.value = 'Search DB';
+    button.setAttribute('id', 'search-button');
+    const formGroup = document.querySelector(
+      '#movie-form .btn-group-justified'
+    );
+    const addButton = document.querySelector('#add-button');
+    formGroup.insertBefore(button, addButton);
+  }
 }
 
 /**
@@ -230,7 +244,7 @@ class Store {
 // Event: Display Movies
 document.addEventListener('DOMContentLoaded', () => {
   UI.displayMovies();
-  TheMovieDB.getConfig(AppConfig);
+  TheMovieDB.getConfig(AppConfig, UI.addSearch);
 });
 
 // Event: Add a Movies
