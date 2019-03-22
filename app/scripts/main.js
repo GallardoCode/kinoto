@@ -173,17 +173,9 @@ class UI {
     document.querySelector('#priority').value = 1;
   }
 
-  static addSearch() {
-    const button = document.createElement('input');
-    button.className = `btn btn-secondary`;
-    button.type = 'button';
-    button.value = 'Search DB';
-    button.setAttribute('id', 'search-button');
-    const formGroup = document.querySelector(
-      '#movie-form .btn-group-justified'
-    );
-    const addButton = document.querySelector('#add-button');
-    formGroup.insertBefore(button, addButton);
+  static showSearch() {
+    const button = document.querySelector('#search-button');
+    button.classList.remove('d-none');
   }
 }
 
@@ -244,7 +236,7 @@ class Store {
 // Event: Display Movies
 document.addEventListener('DOMContentLoaded', () => {
   UI.displayMovies();
-  TheMovieDB.getConfig(AppConfig, UI.addSearch);
+  TheMovieDB.getConfig(AppConfig, UI.showSearch);
 });
 
 // Event: Add a Movies
