@@ -34,7 +34,9 @@ class TheMovieDB {
     let paramsString = '';
     if (params === Object(params)) {
       Object.entries(params).forEach(([k, v]) => {
-        paramsString += `&${k}=${encodeURIComponent(v)}`;
+        if (v) {
+          paramsString += `&${k}=${encodeURIComponent(v)}`;
+        }
       });
     }
     const request = `${
