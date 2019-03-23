@@ -123,6 +123,55 @@ class TheMovieDB {
 
     TheMovieDB.tmdbQuery(queryUrl, correctQuery, success, fail);
   }
+
+  static getSearchMovie(query, success, fail) {
+    const correctQuery = {};
+    const queryUrl = `/search/movie`;
+    if (
+      query === Object(query) &&
+      Object.prototype.hasOwnProperty.call(query, 'query') &&
+      query.query
+    ) {
+      correctQuery.query = query.query;
+      correctQuery.language = Object.prototype.hasOwnProperty.call(
+        query,
+        'language'
+      )
+        ? query.language
+        : '';
+      correctQuery.page = Object.prototype.hasOwnProperty.call(query, 'page')
+        ? query.page
+        : '';
+      correctQuery.incude_adult = Object.prototype.hasOwnProperty.call(
+        query,
+        'include_adult'
+      )
+        ? query.include_adult
+        : '';
+      correctQuery.region = Object.prototype.hasOwnProperty.call(
+        query,
+        'region'
+      )
+        ? query.region
+        : '';
+      correctQuery.year = Object.prototype.hasOwnProperty.call(
+        query,
+        'year'
+      )
+        ? query.year
+        : '';
+      correctQuery.primary_release_year = Object.prototype.hasOwnProperty.call(
+        query,
+        'primary_release_year'
+      )
+        ? query.primary_release_year
+        : '';
+    } else {
+      throw new Error('Query is not object or query property is missing');
+    }
+
+    TheMovieDB.tmdbQuery(queryUrl, correctQuery, success, fail);
+  }
 }
 
 /**
