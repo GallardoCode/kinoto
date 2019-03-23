@@ -8,8 +8,9 @@ import AppConfig from './config';
  * @class Movie
  */
 class Movie {
-  constructor(title, priority) {
+  constructor(title, year, priority) {
     this.title = title;
+    this.year = year;
     this.priority = priority;
   }
 }
@@ -87,7 +88,7 @@ class TheMovieDB {
   }
 
   static getSearchMulti(query, success, fail) {
-    let correctQuery = {};
+    const correctQuery = {};
     const queryUrl = `/search/multi`;
     if (
       query === Object(query) &&
@@ -278,21 +279,30 @@ document.addEventListener('DOMContentLoaded', () => {
   TheMovieDB.getConfig(AppConfig, UI.showSearch);
 });
 
+// Event: Search Movie Database
+document.querySelector('#search-button').addEventListener('click', e => {
+  const logData = data => console.log(data);
+  const query = {
+    query: 'Us',
+    language: 'gibberish'
+  };
+  TheMovieDB.getSearchMulti(query, logData);
+});
 // Event: Add a Movies
 document.querySelector('#movie-form').addEventListener('submit', e => {
   // Prevent submit
   e.preventDefault();
-  console.log(e.target);
   // Get form values
   const title = document.querySelector('#title').value;
+  const year = document.querySelector('#year').value;
   const priority = document.querySelector('#priority').value;
 
   // Validate
   if (title === '') {
-    UI.showAlert('Please fill in all fields', 'danger');
+    UI.showAlert('Please fill in title field', 'danger');
   } else {
     // Instantiate movie
-    const movie = new Movie(title, priority);
+    const movie = new Movie(title, year, priority);
     // Store movie in local storage
     Store.addMovie(movie);
     // Display movie
