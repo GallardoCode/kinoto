@@ -44,7 +44,7 @@ class TheMovieDB {
       TheMovieDB.baseUri
     }${url}?${apiKeyString}${paramsString}`;
     console.log(request);
-    fetch(request).then(response => {
+    return fetch(request).then(response => {
       if (response.ok) {
         return response
           .json()
@@ -124,7 +124,7 @@ class TheMovieDB {
     TheMovieDB.tmdbQuery(queryUrl, correctQuery, success, fail);
   }
 
-  static getSearchMovie(query, success, fail) {
+  static querySearchMovie(query, success, fail) {
     const correctQuery = {};
     const queryUrl = `/search/movie`;
     if (
@@ -154,10 +154,7 @@ class TheMovieDB {
       )
         ? query.region
         : '';
-      correctQuery.year = Object.prototype.hasOwnProperty.call(
-        query,
-        'year'
-      )
+      correctQuery.year = Object.prototype.hasOwnProperty.call(query, 'year')
         ? query.year
         : '';
       correctQuery.primary_release_year = Object.prototype.hasOwnProperty.call(
@@ -171,6 +168,14 @@ class TheMovieDB {
     }
 
     TheMovieDB.tmdbQuery(queryUrl, correctQuery, success, fail);
+  }
+
+  static getMoviesFromResponse(data) {
+    const moviesArray = data.result;
+    // if (typeof callback === 'function') {
+    //   callback(moviesArray);
+    // }
+    return Promise.resolve(moviesArray);
   }
 }
 
@@ -266,6 +271,38 @@ class UI {
     const button = document.querySelector('#search-button');
     button.classList.remove('d-none');
   }
+
+  static showSearchTable() {
+    const table = document.querySelector('#search-table');
+    table.classList.remove('d-none');
+  }
+
+  static addMoviesToSearch(movieArray) {
+    const searchList = document.querySelector('#search-list');
+    let col;
+    let wantedData = {};
+    movieArray.forEach(movie => {
+      wantedData = {};
+      if (movie === Object(movie)) {
+        wantedData.poster = movie.poster_path
+          ? TheMovieDB.imageUri + movie.poster_path
+          : '';
+        wantedData.title = movie.title ? movie.title : '';
+        wantedData.year = movie.release_date
+          ? movie.release_date.split('_')[0]
+          : '';
+      }
+      const row = document.createElement('tr');
+      const fragment = document.createDocumentFragment();
+      Object.entries(wantedData).forEach(([k, v]) => {
+        col = document.createElement('td');
+        col.textContent = v;
+        fragment.appendChild(col);
+      });
+      row.appendChild(fragment);
+      searchList.appendChild(row);
+    });
+  }
 }
 
 /**
@@ -335,7 +372,9 @@ document.querySelector('#search-button').addEventListener('click', e => {
     query: 'Us',
     language: 'gibberish'
   };
-  TheMovieDB.getSearchMulti(query, logData);
+
+  TheMovieDB.querySearchMovie(query, TheMovieDB.getMoviesFromResponse).then(x => console.log(x));
+  UI.showSearchTable();
 });
 // Event: Add a Movies
 document.querySelector('#movie-form').addEventListener('submit', e => {
